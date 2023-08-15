@@ -7,16 +7,18 @@ Author:      Maksymilian Czkalski
 */
 
 //define constants of the plugin_name
-define('AM_PLUGIN_PATH', plugin_dir_url( __FILE__ ));
+define('AM_PLUGIN_PATH', plugin_dir_path( __FILE__ ));
+define('AM_PLUGIN_URL', plugin_dir_url( __FILE__ ));
 
 //add the required class file
 require('includes/class-appointment-max-plugin.php');
+require('includes/shortcode-controller.php');
 
 function appointment_max_init(){
-    $plugin = new Appointment_Max_Pugin();
-    $plugin->init();
+    (new Appointment_Max_Plugin())->init();
+    (new Shortcode_Controller())->init();
 }
-
 add_action('init', 'appointment_max_init');
+
 
 ?>
