@@ -37,8 +37,8 @@ class AM_Database_Controller{
         $wpdb->insert(
             $table_name,
             array(
-                'time_start' => $appointment->time_start->format('c'),
-                'time_end' => $appointment->time_end->format('c'),
+                'time_start' => date_format($appointment->time_start, 'Y-m-d H:i:s'),
+                'time_end' => date_format($appointment->time_end, 'Y-m-d H:i:s'),
                 'name' => $appointment->name,
                 'phone_number' => $appointment->phone_number,
                 'email_address' => $appointment->email_address,
@@ -55,6 +55,54 @@ class AM_Database_Controller{
         $results = $wpdb->get_results( 
                 $wpdb->prepare( "SELECT * FROM $table_name WHERE confirmed=0")
         );
+
+        return $results;
+    }
+
+    static function get_confirmed_appointments(){
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'am_appointments';
+    
+        $results = $wpdb->get_results( 
+                $wpdb->prepare( "SELECT * FROM $table_name WHERE confirmed=1")
+        );
+
+        return $results;
+    }
+
+    static function delete_appointment_by_id($id){
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'am_appointments';
+
+        return $wpdb->delete(
+            $table_name, 		// table name with dynamic prefix
+            ['id' => $id], 						// which id need to delete
+            ['%d'], 							// make sure the id format
+        );
+    }
+
+    static function confirm_appointment_by_id($id){
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'am_appointments';
+
+        return $wpdb->update(
+            $table_name,
+            ['confirmed' => 1],
+            ['id' => $id]
+        );
+    }
+
+    static function get_confirmed_appointments_by_day($day){
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'am_appointments';
+
+        // $day_dt_object = new DateTime($day);
+        $formatted_day = date('Y-m-d', strtotime($day));
+    
+        $results = $wpdb->get_results(
+            $wpdb->prepare( "SELECT * FROM $table_name 
+                WHERE time_start >= %s AND time_start < %s AND confirmed=1", $formatted_day, date('Y-m-d', strtotime($day . ' +1 day'))
+        ));
 
         return $results;
     }

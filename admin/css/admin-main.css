@@ -1,13 +1,39 @@
-.am_pending_appointments_container{
+.am_appointments_container{
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.am_pending_appointment{
+.am_appointments_container a{
+    text-decoration: none;
+}
+
+.am_appointment{
     display: flex;
     justify-content: space-around;
     border-radius: 18px;
     background-color: white;
     padding: 20px;
+}
+
+.am_pending_appointment_confirm_button{
+    color: rgb(4, 72, 4);
+    font-weight: 500;
+}
+
+.am_pending_appointment_remove_button{
+    color: rgb(126, 22, 22);
+}
+
+.appointment_start_date{
+    font-size: 1.2em;
+    font-weight: 500;
+}
+
+.am_appointment.confirmed{
+    border: 3px solid green;
+}
+
+.am_appointment.confirmed .appointment_start_date{
+    color: green;
 }

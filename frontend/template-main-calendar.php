@@ -16,7 +16,7 @@
                     <label for="name"><?= __('Komentarz', 'am_calendar'); ?><textarea rows="4" cols="50" name="comment" id="am_comment"></textarea></label>
                     <input type="hidden" name="appointment_date_time">
                     <input type="hidden" name="appointment_date_time_end">
-                    <input type="submit" href="#"><?= __('Wyślij', 'am_calendar'); ?></input>
+                    <input type="submit" href="#" value="<?= __('Wyślij', 'am_calendar'); ?>">
                 </form>
             </div>
         </div>

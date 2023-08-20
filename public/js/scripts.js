@@ -45,6 +45,7 @@ jQuery(document).ready(function( $ ) {
 
     $('.am_calendar_popup_close').on('click', function(e){
         $('.am_calendar_popup').removeClass('active');
+        step_1();
     });
 
     $('.am_calendar_popup').on('click', function(e){
