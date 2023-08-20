@@ -1,0 +1,13 @@
+.am_pending_appointments_container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.am_pending_appointment{
+    display: flex;
+    justify-content: space-around;
+    border-radius: 18px;
+    background-color: white;
+    padding: 20px;
+}

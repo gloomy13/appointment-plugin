@@ -1,6 +1,6 @@
 <?php
 
-class Shortcode_Controller{
+class AM_Shortcode_Controller{
     function init(){
         add_shortcode('am_calendar', [$this, 'load_shortcode_frontend']);
     }

@@ -4,7 +4,7 @@
 
 
 if(isset($next_month)){
-    $date = new DateTime(date("Y")."-".$next_month."-01");
+    $date = new DateTime($next_year."-".$next_month."-01");
 }
 else{
     $date = new DateTime();
@@ -19,6 +19,7 @@ $first_day_of_the_month = (new DateTime($current_year . "-" . $current_month . "
 
 // for example if the first day of a month is a sunday then 6 empty boxes are being created in for mon-sat
 $number_of_empty_day_boxes = ($first_day_of_the_month + 6) % 7;
+
 
 ?>
 
@@ -42,8 +43,15 @@ $number_of_empty_day_boxes = ($first_day_of_the_month + 6) % 7;
 
     <?php for($i=1;$i<=$number_of_days_in_the_month;$i++): ?>
     
-    <a data="<?= $i.'-'.$current_month.'-'.$current_year ?>" href="#"><div class="am_calendar_day_box"><?= $i ?></div></a>
+    <a <?php if(!isset($next_month) && $i < (new DateTime())->format('j')){ echo 'class="inactive" disabled'; } ?> date="<?= $i.'-'.$current_month.'-'.$current_year ?>" href="#"><div class="am_calendar_day_box"><?= $i ?></div></a>
 
+    <?php endfor; ?>
+    
+    <!-- 36 boxes for grid to always have a one empty box in the last row for non-changing height of the grid container -->
+    <?php for($i=$number_of_empty_day_boxes+$number_of_days_in_the_month;$i<36;$i++): ?>
+    
+    <div class="am_calendar_day_box empty"></div>
+    
     <?php endfor; ?>
 </div>
 <div class="am_calendar_next_month_container">
