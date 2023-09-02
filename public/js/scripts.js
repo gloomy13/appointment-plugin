@@ -13,7 +13,8 @@ jQuery(document).ready(function( $ ) {
             data:{
                 action: 'ajax_next_month',
                 current_month: currentMonth,
-                current_year: currentYear
+                current_year: currentYear,
+                offset: $(this).attr('offset')
             },
             success: function(response){
                 $('.am_calendar_rendered_container').html(response.data);
@@ -37,10 +38,10 @@ jQuery(document).ready(function( $ ) {
             },
             success: function(response){
                 $('.am_calendar_day_slots').html(response.data);
+                $('.am_calendar_popup .am_calendar_popup_appointment_day').text(appointment_date);
+                $('.am_calendar_popup').addClass('active');
             }
         });
-
-        $('.am_calendar_popup').addClass('active');
     });
 
     $('.am_calendar_popup_close').on('click', function(e){
@@ -68,7 +69,10 @@ jQuery(document).ready(function( $ ) {
         $('input[name="appointment_date_time_end"]').val(selected_slot.attr('day') + ' ' + selected_slot.attr('time-end'));
 
         // proceed to step 2
-        step_2();
+        if(selected_slot.length != 0){
+            $('.am_calendar_popup .am_calendar_popup_appointment_time').text(selected_slot.attr('time-start') + ' - ' + selected_slot.attr('time-end'));
+            step_2();
+        }
     });
 
     // steps for appointment form
@@ -94,6 +98,13 @@ jQuery(document).ready(function( $ ) {
             },
             success: function(response){
                 console.log(response.data);
+                $('.am_calendar_popup').removeClass('active');
+                $('.am_calendar').addClass('am_success');
+                $('.am_calendar_rendered_container').html(response.data);
+
+                $('html, body').animate({
+                    scrollTop: $("#am_calendar_anchor").offset().top
+                }, 1000);
             }
         });
     });

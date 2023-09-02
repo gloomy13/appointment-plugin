@@ -1,7 +1,10 @@
-<div class="am_calendar">
+<div class="am_calendar <?php echo isset($is_admin) ? 'admin' : ''; ?>">
+    <div id="am_calendar_anchor"></div>
     <div class="am_calendar_popup">
         <div>
             <a class="am_calendar_popup_close">X</a>
+            <div class="am_calendar_popup_appointment_day"></div>
+            <div class="am_calendar_popup_appointment_time"></div>
             <div class="am_calendar_day_slots_container">
                 <div class="am_calendar_day_slots">
                     <?php require_once('renderable/template-main-calendar-slots-render.php'); ?>

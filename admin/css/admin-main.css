@@ -37,3 +37,7 @@
 .am_appointment.confirmed .appointment_start_date{
     color: green;
 }
+
+.am_calendar.admin .selected{
+    background-color: #c7c6c6;
+}

@@ -43,7 +43,16 @@ $number_of_empty_day_boxes = ($first_day_of_the_month + 6) % 7;
 
     <?php for($i=1;$i<=$number_of_days_in_the_month;$i++): ?>
     
-    <a <?php if(!isset($next_month) && $i < (new DateTime())->format('j')){ echo 'class="inactive" disabled'; } ?> date="<?= $i.'-'.$current_month.'-'.$current_year ?>" href="#"><div class="am_calendar_day_box"><?= $i ?></div></a>
+    <a <?php
+        if(
+            (!isset($next_month) && $i < (new DateTime())->format('j')) || 
+            (isset($next_month) && $next_month < (new DateTime())->format('n')) ||
+            (isset($next_month) && $next_month == (new DateTime())->format('n') && $i < (new DateTime())->format('j'))
+        )
+        { 
+            echo 'class="inactive" disabled'; 
+        } 
+        ?> date="<?= $i.'-'.$current_month.'-'.$current_year ?>" href="#"><div class="am_calendar_day_box"><?= $i ?></div></a>
 
     <?php endfor; ?>
     
@@ -55,5 +64,6 @@ $number_of_empty_day_boxes = ($first_day_of_the_month + 6) % 7;
     <?php endfor; ?>
 </div>
 <div class="am_calendar_next_month_container">
-    <a current-month="<?= $current_month; ?>" current-year="<?= $current_year; ?>" class="am_calendar_next_month_button" href="#"><?= __('Następny miesiąc', 'am_calendar'); ?></a>
+    <a current-month="<?= $current_month; ?>" current-year="<?= $current_year; ?>" class="am_calendar_next_month_button" offset="-1" href="#"><?= __('Poprzedni miesiąc', 'am_calendar'); ?></a>
+    <a current-month="<?= $current_month; ?>" current-year="<?= $current_year; ?>" class="am_calendar_next_month_button" offset="1" href="#"><?= __('Następny miesiąc', 'am_calendar'); ?></a>
 </div>
